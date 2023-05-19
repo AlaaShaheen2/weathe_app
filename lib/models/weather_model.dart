@@ -13,7 +13,7 @@ class WeatherModel {
       required this.weatherStateName});
 
   factory WeatherModel.fromJson(dynamic data) {
-    var jasonData = data['forecast']['forecastday'][0];
+    var jasonData = data['forecast']['forecastday'][0]['day'];
 
     return WeatherModel(
       date: data['location']['localtime'],
@@ -22,5 +22,9 @@ class WeatherModel {
       minTemp: jasonData['mintemp_c'],
       weatherStateName: jasonData['condition']['text'],
     );
+  }
+  @override
+  String toString() {
+    return 'temp = $temp minTemp=$minTemp';
   }
 }

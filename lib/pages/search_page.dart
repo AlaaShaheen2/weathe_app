@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:weathe_app/models/weather_model.dart';
 import 'package:weathe_app/services/weather_service.dart';
 
 class SearchPage extends StatelessWidget {
@@ -14,10 +15,13 @@ class SearchPage extends StatelessWidget {
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 16),
           child: TextField(
-            onSubmitted: (data) {
+            onSubmitted: (data) async {
               cityName = data;
               weatherService service = weatherService();
-              service.getweather(cityName: cityName!);
+              WeatherModel weather =
+                  await service.getweather(cityName: cityName!);
+              weatherData = weather;
+              Navigator.pop(context);
             },
             decoration: InputDecoration(
               contentPadding:
@@ -33,3 +37,5 @@ class SearchPage extends StatelessWidget {
     );
   }
 }
+
+WeatherModel? weatherData;
